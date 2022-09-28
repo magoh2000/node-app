@@ -15,7 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag node-app:$(date +%s)
-      # export SECURE_API_TOKEN=41521d36-21d9-42bc-bd61-415fbfb0ba0e
-      # sysdig-cli-scanner -a https://us2.app.sysdig.com node-web-app
+      run: |
+        docker build . --file Dockerfile --tag node-app:$(date +%s)
+        curl -LO "https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/darwin/amd64/sysdig-cli-scanner"
+        chmod +x sysdig-cli-scanner
+        export SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN}} sysdig-cli-scanner -a https://us2.app.sysdig.com node-app:$(date +%s)
       
