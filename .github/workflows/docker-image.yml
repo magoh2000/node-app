@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag node-app:$(date +%s)
+      # export SECURE_API_TOKEN=41521d36-21d9-42bc-bd61-415fbfb0ba0e
+      # sysdig-cli-scanner -a https://us2.app.sysdig.com node-web-app
+      
