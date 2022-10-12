@@ -21,4 +21,5 @@ jobs:
         uname -r
         uname -a
         chmod +x sysdig-cli-scanner
-        #SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN}} sysdig-cli-scanner -a https://us2.app.sysdig.com node-app:${{ github.run_number}}      
+        export SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN}} 
+        sysdig-cli-scanner -a https://us2.app.sysdig.com node-app:${{ github.run_number}}      
