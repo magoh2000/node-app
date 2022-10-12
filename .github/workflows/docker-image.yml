@@ -18,8 +18,8 @@ jobs:
       run: |
         docker build . --file Dockerfile --tag node-app:${{ github.run_number}}
         curl -LO "https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/linux/amd64/sysdig-cli-scanner"
-        uname -r
-        uname -a
+        pwd
         chmod +x sysdig-cli-scanner
         export SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN}} 
+        pwd
         sysdig-cli-scanner -a https://us2.app.sysdig.com node-app:${{ github.run_number}}      
